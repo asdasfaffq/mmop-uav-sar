@@ -35,9 +35,18 @@ applications/.osm_cache/
 *.bcf-SAVE-ERROR
 
 # Downloaded journal template package copies
+paper/
 paper/JCDE_templates.zip
 paper/JCDE_templates/
 paper/JCDE_latex_template/
 
-# Large generated experiment payloads; keep summaries, statistics, tables and figures in git.
+# Manuscript draft material; this repository is for reproducibility code.
+docs/abstract_draft.md
+docs/contribution_draft.md
+docs/figure_table_caption_draft.md
+docs/manuscript_*_draft.md
+docs/title_candidates.md
+
+# Large/generated experiment payloads; keep reproducibility summaries, statistics and figures in git.
 results/raw/
+results/tables/

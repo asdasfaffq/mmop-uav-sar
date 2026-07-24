@@ -1,6 +1,7 @@
-# EARS-MMOEA: Equivalence-Aware Multimodal Multi-Objective Optimization for Multi-UAV Emergency Response
+# EARS-MMOEA: Reproducibility Code for Equivalence-Aware Multimodal Multi-Objective Optimization
 
-> **Working title — final title is decided after results (see `docs/title_candidates.md`).**
+> Reviewer-facing reproducibility repository. Manuscript text, LaTeX sources and
+> journal submission files are intentionally excluded.
 
 A research project on **Multimodal Multi-Objective Optimization (MMOP)**: recovering not
 a single Pareto set but the **multiple, geometrically distinct decision-space solution
@@ -36,8 +37,7 @@ This project follows strict honesty rules. In particular:
 All phases complete (0-14). Both rank-1 targets achieved honestly; see per-phase
 reports `docs/PHASE*_REPORT.md`, results in `docs/benchmark_result_report.md`,
 `docs/ablation_report.md`, `docs/placement_application_report.md`, the honest redesign
-log `docs/failure_diagnosis.md`, manuscript drafts `docs/*_draft.md`, and the audit
-`docs/final_audit_report.md`.
+log `docs/failure_diagnosis.md`, and the audit `docs/final_audit_report.md`.
 
 ## Project layout
 
@@ -50,7 +50,7 @@ applications/  OSM graph, risk field, UAV route encoding/metrics/repair, SAR pro
 experiments/   parameter analysis, benchmark, ablation, UAV, statistics runners
 plotting/      publication figures (framework, routes, heatmap, Pareto, clusters, ...)
 configs/       benchmark / uav_sar / params / selected_params / baselines
-results/       raw/ summary/ statistics/ figures/ tables/  (generated)
+results/       summary/ statistics/ figures/  (generated reproducibility outputs)
 utils/         seeds, logging, IO, config
 docs/          method/experiment drafts, baseline note, failure diagnosis, audit
 tests/         pytest suite
@@ -82,7 +82,7 @@ python experiments/run_statistics.py --results results/raw --experiment benchmar
 python experiments/run_statistics.py --results results/raw --experiment placement  --reference EARS_MMOEA
 python plotting/plot_all.py        --experiment benchmark            # benchmark figures
 python plotting/plot_placement.py  --config configs/placement.yaml   # real-map application figures
-python plotting/make_tables.py                                       # LaTeX tables
+python plotting/make_tables.py                                       # optional local LaTeX tables
 bash run_all.sh                                                      # end-to-end (all of the above)
 ```
 
