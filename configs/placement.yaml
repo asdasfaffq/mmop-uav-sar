@@ -1,0 +1,24 @@
+# Second real-world application: multi-facility emergency-station placement MMOP
+# over a real OSM city. Genuinely multimodal (many distinct layouts ~ equivalent).
+experiment_name: placement
+
+osm:
+  city: Macau
+
+n_stations: 5            # K emergency-response stations to place
+n_demand: 150            # M real OSM demand nodes
+# Three placement instances (different demand samples) for Friedman.
+instance_seeds: [11, 22, 33]
+
+protocol:
+  n_runs: 30
+  max_evaluations: 24000
+  pop_size: 120
+
+algorithms:
+  - EARS_MMOEA
+  - MO_Ring_PSO_SCD
+  - DN_NSGAII
+  - OmniOptimizer
+  - CPDEA
+  - MMEA_WI

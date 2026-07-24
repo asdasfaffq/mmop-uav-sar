@@ -1,0 +1,56 @@
+# Real-world application: multi-UAV emergency search-and-rescue over OSM maps.
+# Fully specified in Phase 10; this is the scaffold.
+experiment_name: uav_sar
+
+osm:
+  city: Macau            # candidates: Macau, Guangzhou, Shenzhen, HongKong, SanFrancisco
+  # bbox / place query resolved in applications/osm_graph_builder.py
+  network_type: drive    # base graph; flight graph derived from it
+  cache_dir: applications/.osm_cache
+
+scenario:
+  n_uav: 4
+  n_depots: 1
+  n_targets: 12
+  risk_zones: 4
+  no_fly_zones: 3
+  seed: 20260616         # scenario generation seed (separate from algo runs)
+
+objectives:              # all minimised (maximise objectives are negated)
+  - total_distance
+  - travel_time
+  - energy
+  - risk_exposure
+  - neg_coverage         # -coverage
+  - neg_comm_quality     # -communication quality
+
+constraints:
+  battery_capacity: 1.0          # normalised energy budget per UAV
+  max_route_length: null         # resolved from map scale
+  max_mission_time: null
+  inter_uav_separation: 50.0     # metres
+  require_depot_return: true
+  max_risk_exposure: 1.0
+
+# Bi-objective robust multi-route emergency planning (distance vs risk) over a real
+# OSM city: find diverse, near-optimal route options. This MMOP-native, lightly-
+# constrained bi-objective setting is where the balanced EARS design excels.
+scenario_seeds: [1, 2, 3]
+n_styles: 3                  # routing-corridor choices per UAV (shortest/risk-avoiding/alt)
+objective_mode: biobj        # [total_distance, risk_exposure]
+battery_mult: 2.5            # generous range so feasibility is not the bottleneck
+family_threshold: 0.35       # route-plan distance to count a distinct route family
+
+protocol:
+  n_runs: 30
+  max_evaluations: 40000
+  pop_size: 200
+
+# Algorithms resolved via the registry (same 5 fixed baselines + ours).
+algorithms:
+  - EARS_MMOEA
+  - MO_Ring_PSO_SCD
+  - DN_NSGAII
+  - OmniOptimizer
+  - CPDEA
+  - MMEA_WI

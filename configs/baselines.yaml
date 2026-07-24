@@ -1,0 +1,66 @@
+# Baseline registry config. The 5 baselines are FIXED in Phase 1.
+# Rationale: docs/baseline_selection_note.md. Implementations: Phase 4.
+# All ported to Python from official MATLAB/PlatEMO sources; validated on MMF.
+
+baselines:
+  MO_Ring_PSO_SCD:
+    type: classic
+    mechanism: PSO + ring topology + special crowding distance
+    venue: IEEE TEVC 2018
+    code: MATLAB FileExchange #68662 + PlatEMO
+    module: baselines.mo_ring_pso_scd
+    status: fixed
+    params: {}                 # authors' recommended; filled at implementation
+  DN_NSGAII:
+    type: classic
+    mechanism: decision-space niching NSGA-II
+    venue: IEEE CEC 2016
+    code: PlatEMO (DNNSGAII)
+    module: baselines.dn_nsga2
+    status: fixed
+    params: {}
+  OmniOptimizer:
+    type: classic
+    mechanism: epsilon-dominance + decision&objective crowding
+    venue: EJOR 2008
+    code: PlatEMO (OmniOptimizer)
+    module: baselines.omni_optimizer
+    status: fixed
+    params: {}
+  CPDEA:
+    type: sota
+    mechanism: convergence-penalized density (decision-space) + DE
+    venue: IEEE TEVC 2020
+    code: official GitHub yiping0liu/CPDEA
+    module: baselines.cpdea
+    status: fixed
+    params: {}
+  MMEA_WI:
+    type: sota
+    mechanism: weighted indicator (decision-space diversity in indicator)
+    venue: IEEE TEVC 2021
+    code: Wenhua-Li/ComparativeStudyofMMOP
+    module: baselines.mmea_wi
+    status: fixed
+    params: {}
+  HREA:
+    type: sota
+    mechanism: hierarchy ranking (global + within-peak local Pareto fronts)
+    venue: IEEE TEVC 2023
+    code: gengfengli/HREA
+    module: baselines.hrea
+    status: reimplemented
+    params: {}
+
+# Swap-ins if a baseline cannot be ported faithfully (documented in the note).
+swap_candidates:
+  - TriMOEA_TAnR     # TEVC 2019, official code yiping0liu/TriMOEA-TAnR
+  - MMOEA_DC         # TEVC 2021, dual clustering
+
+fairness:
+  shared_pop_size: true
+  shared_max_evaluations: true
+  shared_seed_protocol: true
+  no_baseline_weakening: true
+  authors_recommended_params: true
+  validation_gate: MMF IGDX/PSP/HV within tolerance (Phase 2/4)

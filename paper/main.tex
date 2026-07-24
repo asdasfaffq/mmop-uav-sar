@@ -1,0 +1,174 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[british]{babel}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{references.bib}
+\DeclareLanguageMapping{british}{british-apa}
+\DeclareFieldFormat[article]{volume}{\apanum{#1}}
+\renewcommand*{\finalnamedelim}{%
+  \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+  \addspace\&\space}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+\usepackage{chngcntr}
+\usepackage{subcaption}
+\usepackage{authblk}
+\usepackage{diagbox}
+\usepackage{comment}
+\usepackage{url}
+\usepackage{helvet}
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{microtype}
+\usepackage{lineno}
+\usepackage[section]{placeins}
+\usepackage{rotating}
+\usepackage{tikz}
+\usepackage[hidelinks]{hyperref}
+
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, backgrounds, fit}
+\graphicspath{{figures/}}
+\onehalfspacing
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection.}{1em}{}
+\renewcommand{\thesubfigure}{\Alph{subfigure}}
+\captionsetup[table]{position=top,labelfont=bf}
+\captionsetup[figure]{labelfont=bf}
+
+% Allow line breaks after underscores in algorithm names (e.g. MO_Ring_PSO_SCD).
+\renewcommand{\_}{\textunderscore\allowbreak}
+\emergencystretch=3em
+\tolerance=1500
+\pdfsuppresswarningpagegroup=1
+\date{}
+
+\begin{document}
+
+\linenumbers
+
+\begin{center}
+{\Huge Within-Front Diversity Selection for Multimodal Design Optimisation}
+\\[5ex]
+
+{\large Yanxiao Li} \\
+{\small
+Macao Polytechnic University, Macao, China \\
+P2525981@mpu.edu.mo \\
+\url{https://orcid.org/0009-0008-3389-1619}
+} \\[1.2em]
+
+{\large Junhao Wei} \\
+{\small
+Macao Polytechnic University, Macao, China \\
+P2312195@mpu.edu.mo \\
+\url{https://orcid.org/0009-0006-0553-2032}
+} \\[1.2em]
+
+{\large Yifu Zhao} \\
+{\small
+Macao Polytechnic University, Macao, China \\
+p2523269@mpu.edu.mo \\
+\url{https://orcid.org/0009-0004-2363-9269}
+} \\[1.2em]
+
+{\large Xu Yang} \\
+{\small
+Macao Polytechnic University, Macao, China \\
+xuyang@mpu.edu.mo \\
+\url{https://orcid.org/0000-0002-7037-3609}
+} \\[1.2em]
+
+{\large Yapeng Wang \small(Corresponding Author)} \\
+{\small
+Macao Polytechnic University, Macao, China \\
+yapengwang@mpu.edu.mo \\
+\url{https://orcid.org/0000-0002-1085-5091}
+}
+\end{center}
+
+\begin{abstract}
+Computational design often requires several distinct solutions with comparable trade-offs, rather
+than a single Pareto set. Emergency-facility placement is one example: station layouts can be
+equivalent in mean and worst-case access while differing substantially in geography. Multimodal
+multi-objective optimisation formalises this requirement, but standard selection pressure often
+collapses equivalent decision regions. This study shows that the location of the decision-space
+diversity signal is the key design choice. In a Pareto-based evolutionary algorithm, sparsity
+should be used as a non-negative \emph{within-front} selection term and kept out of the dominance
+sort. This separates convergence, carried by rank, from decision-space coverage, carried by
+tie-breaking inside the splitting front. A controlled study that fixes the backbone and sparsity
+signal shows that within-front placement outperforms in-sort fusion. Multiplicative and additive
+within-front forms are statistically similar, indicating that placement rather than algebraic form
+carries the effect. The principle is implemented in an equivalence-aware evolutionary framework
+with archives, adaptive niching and an operator portfolio. Benchmarks, scalable families and a
+deceptive counter-regime define where the method is effective. In a five-city OpenStreetMap
+facility-placement case study, the method returns geographically distinct layouts with
+near-equivalent access trade-offs. The method is not favoured when diversity comes from deceptive
+local Pareto sets rather than equivalent global optima. All baselines, protocols, seeds and
+statistics are released.
+\end{abstract}
+
+\textbf{Keywords}: multimodal multi-objective optimisation, evolutionary algorithm,
+computational design, decision-space diversity, facility location, OpenStreetMap.
+
+\section*{Nomenclature}
+
+\begin{tabbing}
+$x_i$\qquad \= decision vector of solution $i$\\
+$F(x_i)$ \> objective vector of solution $i$\\
+$E(i)$ \> equivalence diversity used inside a Pareto front\\
+$S(i)$ \> normalised decision-space sparsity among non-dominated solutions\\
+$D(i)$ \> hybrid within-front diversity key\\
+$\beta$ \> sparsity weight in the hybrid key\\
+$\rho$ \> rarity boost for decision-space modes\\
+$\phi(\cdot)$ \> decision-space representation or feature map
+\end{tabbing}
+
+\input{sections/introduction}
+\input{sections/related}
+\input{sections/formulation}
+\input{sections/method}
+\input{sections/experiments}
+\input{sections/conclusion}
+
+\FloatBarrier
+
+\section*{Conflicts of interest}
+The authors declare that they have no conflicts of interest.
+
+\section*{Author contributions}
+Yanxiao Li: Conceptualization; Methodology; Software; Validation; Investigation; Visualization;
+Writing - original draft. Junhao Wei: Software; Validation; Data curation. Yifu Zhao: Software;
+Investigation; Visualization. Xu Yang: Methodology; Supervision; Writing - review \& editing.
+Yapeng Wang: Supervision; Project administration; Funding acquisition; Writing - review \& editing.
+
+\section*{Funding}
+This work was supported by grants from FDCT-MOST (0018/2025/AMJ) and Macao Polytechnic University
+(RP/FCA-25/2025).
+
+\section*{Data availability}
+The code, data, seeds, protocols, statistics and generated figures supporting this study will be made
+available in a public repository before submission; the repository URL will be added once the archive
+is public.
+
+\section*{Acknowledgments}
+Not applicable.
+
+\printbibliography
+
+\end{document}

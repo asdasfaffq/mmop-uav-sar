@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering\small
+\caption{Average rank per metric on MMF1--8 (lower is better), metrics \emph{grouped} rather than pooled. The a-priori primary metrics are the decision-space indicators IGDX and PSP ($^\ast$). We do not report a single all-metric mean (the indicators are correlated); instead each group has its own mean rank. EARS is the only algorithm top-2 in \emph{both} group means: best in objective space and second (a statistical tie with CPDEA) in decision space, whereas CPDEA leads decision space but is near-last in objective space and Omni-optimizer is the reverse. $\#$modes is indicative.}
+\label{tab:benchmark_rank}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+ & CPDEA & \textbf{EARS} & MO\_Ring & DN-NSGA-II & Omni & HREA & MMEA-WI \\
+\midrule
+\multicolumn{8}{l}{\emph{Objective-space group}}\\
+IGD & 6.12 & 2.25 & 3.25 & 4.00 & \textbf{2.00} & 4.75 & 5.62 \\
+IGD$^+$ & 6.38 & \textbf{2.00} & 3.50 & 4.12 & 2.12 & 4.50 & 5.38 \\
+HV & 6.38 & \textbf{2.12} & 3.62 & 4.75 & 2.12 & 4.50 & 4.50 \\
+spacing & 6.38 & \textbf{2.25} & 2.75 & 4.75 & 2.62 & 5.38 & 3.88 \\
+\;\;\emph{objective-space mean} & 6.31 & \textbf{2.16} & 3.28 & 4.41 & 2.22 & 4.78 & 4.84 \\
+\midrule
+\multicolumn{8}{l}{\emph{Decision-space group (primary)}}\\
+IGDX$^\ast$ & \textbf{1.88} & 1.88 & 3.62 & 4.12 & 5.00 & 5.75 & 5.75 \\
+PSP$^\ast$ & 2.00 & \textbf{1.88} & 3.62 & 3.88 & 4.75 & 5.88 & 6.00 \\
+mode-cov & \textbf{1.62} & 2.12 & 3.50 & 4.00 & 4.88 & 5.88 & 6.00 \\
+\;\;\emph{decision-space mean} & \textbf{1.83} & 1.96 & 3.58 & 4.00 & 4.88 & 5.83 & 5.92 \\
+\midrule
+\#modes & 4.88 & 3.88 & 4.25 & 5.12 & 4.50 & 3.50 & \textbf{1.88} \\
+\bottomrule
+\end{tabular}}
+\end{table}

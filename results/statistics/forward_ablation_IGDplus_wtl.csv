@@ -1,0 +1,6 @@
+,vs,win,tie,loss
+0,F0_NSGAII,0,0,8
+1,F1_plusE,0,6,2
+2,F2_plusS_core,0,6,2
+3,F3_plusPortfolio,0,8,0
+4,F4_plusCrossMode,0,7,1

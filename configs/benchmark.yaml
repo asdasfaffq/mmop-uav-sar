@@ -1,0 +1,43 @@
+# Standard MMOP benchmark experiment configuration.
+experiment_name: benchmark
+
+# Problem suites. Concrete problem instances are resolved by the benchmark
+# wrappers (Phase 2). MMF + CEC2020 MMO are the primary suites; IDMP optional.
+suites:
+  - MMF        # MMF1..MMF14 (Yue et al. 2018 / CEC2019)
+  - CEC2020    # CEC2020 MMO test functions
+
+# Validation subset used ONLY for parameter analysis (Phase 6). Disjoint from
+# the formal-comparison reporting emphasis to avoid tuning on the test set.
+validation_subset:
+  - MMF1
+  - MMF2
+  - MMF5
+
+# Run protocol -- identical for every algorithm (fairness).
+protocol:
+  n_runs: 30
+  max_evaluations: 50000     # function evaluations budget (shared)
+  pop_size: 200              # shared population size
+  # termination is purely by max_evaluations
+
+# Algorithms to compare (keys resolved via baselines/baseline_registry.py).
+algorithms:
+  - EARS_MMOEA      # ours
+  # 5 baselines fixed in Phase 1; placeholders here:
+  - DN_NSGAII
+  - MO_Ring_PSO_SCD
+  - MMOEA_DC
+  - SOTA_1
+  - SOTA_2
+
+# Metrics computed per run (Phase 5).
+metrics:
+  - IGD
+  - IGDplus
+  - HV
+  - IGDX
+  - PSP
+  - mode_coverage
+  - n_modes
+  - spacing

@@ -1,0 +1,89 @@
+============================================================
+ FIGURE 1  —  EARS-MMOEA FRAMEWORK  —  AI IMAGE PROMPT
+============================================================
+
+⚠ 重要提醒 / READ FIRST
+- 框架图是技术流程图。AI 画图会把文字、公式、模块名全部画乱（"M1"、
+  D(i)=E(i)(1+βS)、模块名等几乎必乱码），结构也常画错。
+- 因此 AI 版只建议当 *好看的概念示意图 / graphical abstract / 封面*。
+  论文正文的 Figure 1 建议仍用现有的 TikZ 矢量图（文字精确、结构准确）。
+- 所有提示词都要求 AI **不画任何文字**(no text)。文字标签你拿到图后用
+  PPT / PowerPoint / Photoshop / Figma 自己叠上去（末尾给了标注清单和位置）。
+- Midjourney 末尾可加:  --ar 16:9 --style raw --v 6
+  DALL·E / ChatGPT 直接贴英文即可。
+
+============================================================
+ PROMPT A  —  主推：干净信息图风格的框架（无文字，你后期加标签）
+============================================================
+A clean modern scientific framework infographic, flat vector style, horizontal
+left-to-right flow, soft academic palette (slate blue, warm orange, teal, green,
+light grey on white background), generous whitespace, subtle drop shadows,
+publication quality.
+
+LEFT (input): a small stylized top-down city map made of light grey streets with a
+faint river, scattered tiny demand dots, feeding an arrow to the right.
+
+CENTER (engine): a large rounded container box representing a generational loop,
+holding SEVEN small rounded module tiles arranged as a cycle with a curved
+"feedback" arrow returning to the start. ONE module tile, sitting at the centre, is
+clearly HIGHLIGHTED with a glowing warm-orange frame and a soft halo, marked as the
+core; a short orange arrow connects this highlighted tile into the selection step.
+The other six tiles are calm neutral colours. Thin clean arrows connect the tiles.
+
+RIGHT (output): a bright yellow rounded box emitting several distinct clusters of
+star markers (multiple equally-good solution families), then two small teal badges
+to its right (representing benchmark and real-application validation).
+
+Minimalist, crisp geometry, evenly spaced, no text, no words, no letters, no
+numbers, no equations. 16:9.
+
+============================================================
+ PROMPT B  —  更强调核心思想（placement：排序后才注入多样性）
+============================================================
+A clean flat-vector scientific diagram of a selection pipeline, soft academic
+colours, left-to-right. A stream of small dots enters a crisp funnel labelled by
+shape as a "dominance sort" (the funnel stays pure blue and untouched). AFTER the
+funnel, on the single top output row only, a gentle warm-orange sideways nudge
+re-arranges the dots within that one row, spreading them into several distinct
+bright clusters without disturbing the funnel. A faint dashed loop returns to the
+start (generational loop). Emphasis: the orange diversity nudge happens AFTER and
+OUTSIDE the funnel, never inside it. Lots of whitespace, subtle shadows, no text,
+no words, no letters, no equations, 16:9.
+
+============================================================
+ PROMPT C  —  封面/graphical-abstract 艺术版（半写实）
+============================================================
+A sophisticated graphical abstract blending a real city map with an optimization
+engine, semi-realistic digital illustration with a clean infographic overlay. A
+softly glowing top-down night city on the left; a luminous circular engine of seven
+orbiting nodes in the centre with one central node glowing brighter than the rest;
+on the right, several constellations of golden station markers forming distinct but
+equally elegant layouts over the same city, linked by faint Pareto-curve light
+arcs. Cool blue base, warm gold accents, calm precision, premium scientific poster
+look. No text, no words, no letters. 16:9.
+
+============================================================
+ 你后期要叠的文字标签（AI 不画，自己加） / LABELS TO ADD YOURSELF
+============================================================
+位置参照 PROMPT A 的布局：
+
+ 左 (input box):        Real OSM city  /  street graph, demand nodes
+ 中 (engine container): EARS-MMOEA engine  (one generation)
+ 七个模块 tiles:
+     M1  Hybrid dual-space key   D(i)=E(i)(1+βS(i))   ← 高亮那个
+     M2  Three archives
+     M3  Adaptive niching (silhouette k-means)
+     M4  Within-/cross-mode mating
+     M5  Constraint-aware selection
+     M6  Operator portfolio (bandit)
+     M7  Environmental selection
+ 高亮箭头标注:          ranks the splitting front (within-front tie-break)
+ 反馈箭头标注:          next generation
+ 右 (output box):       Multiple Pareto-equivalent layout families
+ 两个 badge:            MMF + CEC MMO benchmark: rank-1
+                        Five real OSM cities: rank-1 (5-city average)
+
+一句话副标题（可放图下方）:
+ "Diversity injected as a within-front tie-break, kept out of the dominance sort:
+  coverage added at small, measured convergence cost."
+============================================================

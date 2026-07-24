@@ -1,0 +1,10 @@
+# Optional second real application (Phase 11). Default: disaster medical-supply
+# delivery over the same OSM pipeline. Disabled until Phase 10 is solid.
+experiment_name: real_app2
+enabled: false
+variant: medical_supply_delivery   # A: medical | B: infra inspection | C: SUMO | D: EV charging
+reuse_osm_pipeline: true
+protocol:
+  n_runs: 30
+  max_evaluations: 40000
+  pop_size: 200

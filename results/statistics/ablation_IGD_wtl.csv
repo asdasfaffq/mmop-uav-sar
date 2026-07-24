@@ -1,0 +1,10 @@
+,vs,win,tie,loss
+0,A1_noDMArchive,0,7,1
+1,A2_noRouteFamily,0,8,0
+2,A3_noEquivFitness,0,5,3
+3,A4_noNiching,0,8,0
+4,A5_noCrossMode,0,8,0
+5,A6_noConstraintAware,0,8,0
+6,A7_noPortfolio,0,8,0
+7,A8_BackboneOnly,0,2,6
+8,A9_noSparsityBonus,0,8,0

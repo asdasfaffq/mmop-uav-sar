@@ -1,0 +1,39 @@
+# Default EARS-MMOEA hyper-parameters (search space ranges documented in
+# docs/parameter_analysis_report.md). These are *defaults*; the frozen set used
+# for all formal experiments lives in configs/selected_params.yaml and is
+# produced by experiments/run_parameter_analysis.py (Phase 6).
+
+ears_mmoea:
+  pop_size: 200
+  # archive capacities
+  pareto_archive_size: 200        # Archive 1: objective-space quality
+  decision_mode_archive_size: 100 # Archive 2: decision-space modes
+  route_family_archive_size: 50   # Archive 3: UAV route families (app only)
+  # adaptive niching
+  adaptive_niche_coef: 1.0        # multiplier on data-driven niche radius
+  min_modes: 2
+  max_modes: 20
+  mode_entropy_threshold: 0.5     # below -> collapse warning -> more exploration
+  clustering_update_freq: 5       # generations between niche re-clustering
+  # mating / reproduction
+  cross_mode_mating_prob: 0.3     # base probability; adapted online
+  restart_ratio: 0.05             # archive-guided restart fraction
+  random_immigrant_ratio: 0.02
+  # constraint handling
+  epsilon_relax_coef: 0.1         # initial epsilon level (decayed over run)
+  epsilon_decay: 0.95
+  # operator portfolio (multi-armed bandit)
+  operator_lr: 0.1                # credit-assignment learning rate
+  operator_min_prob: 0.05
+  # objective-space variation defaults
+  sbx_eta: 20
+  sbx_prob: 0.9
+  pm_eta: 20
+  de_F: 0.5
+  de_CR: 0.9
+  # route topology distance weights (UAV app)
+  route_dist_weights:
+    edge_jaccard: 0.4
+    waypoint_hausdorff: 0.3
+    assignment_diff: 0.2
+    visiting_order: 0.1

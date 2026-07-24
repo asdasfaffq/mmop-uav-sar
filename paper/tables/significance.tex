@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering\small
+\caption{Friedman post-hoc significance (Dem\v{s}ar), \textbf{EARS-MMOEA as control}: Holm-adjusted $p$-values of EARS vs each baseline, on the benchmark primary metric IGDX ($N{=}8$ problems) and the case-study core suite ($N{=}5$ cities). $z>0$ favours EARS; $^{*}$ marks Holm $p<0.05$. This complements the per-problem Wilcoxon-signed-rank + Holm win/tie/loss reported elsewhere.}
+\label{tab:significance}
+\begin{tabular}{lcc@{\quad}cc}
+\toprule
+& \multicolumn{2}{c}{Benchmark IGDX ($N{=}8$)} & \multicolumn{2}{c}{Application core ($N{=}5$)}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+EARS vs & $z$ & Holm $p$ & $z$ & Holm $p$ \\
+\midrule
+CPDEA & 0.00 & 1.000 & 4.10 & 0.000$^{*}$ \\
+MMEA-WI & 3.59 & 0.002$^{*}$ & 2.71 & 0.034$^{*}$ \\
+HREA & 3.59 & 0.002$^{*}$ & 1.32 & 0.375 \\
+MO\_Ring & 1.62 & 0.210 & 1.61 & 0.322 \\
+DN-NSGA-II & 2.08 & 0.112 & 2.27 & 0.093 \\
+Omni & 2.89 & 0.015$^{*}$ & 1.32 & 0.375 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize EARS control mean rank: IGDX 1.88; case-study core 1.40.
+\end{table}

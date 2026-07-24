@@ -1,0 +1,43 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Local secrets and machine-specific files
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+applications/.osm_cache/
+
+# LaTeX build artefacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.spl
+*.synctex.gz
+*.toc
+*.xdv
+*.bbl-SAVE-ERROR
+*.bcf-SAVE-ERROR
+
+# Downloaded journal template package copies
+paper/JCDE_templates.zip
+paper/JCDE_templates/
+paper/JCDE_latex_template/
+
+# Large generated experiment payloads; keep summaries, statistics, tables and figures in git.
+results/raw/

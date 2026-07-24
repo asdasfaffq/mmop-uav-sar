@@ -1,0 +1,35 @@
+# FROZEN parameter set (Phase 6 parameter analysis on the validation
+# subset MMF1/2/5 only). Do NOT hand-edit. Used unchanged for Phase 7
+# benchmark, Phase 9 ablation, and the UAV application.
+ears_mmoea:
+  pop_size: 200
+  pareto_archive_size: 200
+  decision_mode_archive_size: 50
+  route_family_archive_size: 50
+  niche_boost: 1.0
+  cross_mode_mating_prob: 0.2
+  max_modes: 5
+  min_modes: 2
+  # OFAT on the reduced search budget marginally favoured freq=1, but a full-budget
+  # re-check on validation problem MMF5 (pop=200/50k) showed freq=10 is both faster
+  # AND better (IGDX 0.074 vs 0.086): freq=1 overfit the reduced search budget.
+  # freq=10 chosen (validation-only check; no test-set leakage).
+  clustering_update_freq: 10
+  # Phase-8 redesign: HYBRID diversity key = equivalence diversity (SCD + niche
+  # rarity) x (1 + hybrid_beta * decision-space kNN sparsity). Resolves the
+  # convergence/diversity trade-off. Validation sweep (MMF1/2/5, 30 runs): IGDX
+  # improves monotonically with beta (most gain by 0.5); IGD flat to 0.5 then
+  # SIGNIFICANTLY regresses for beta>=1 on MMF1/MMF5 (Wilcoxon p<0.05), MMF2 robust.
+  # beta=0.5 chosen as the knee (IGDX gain vs IGD cost). Validation only.
+  selection_mode: hybrid
+  hybrid_beta: 0.5
+  operator_lr: 0.05
+  operator_min_prob: 0.05
+  restart_ratio: 0.05
+  epsilon_relax_coef: 0.1
+  epsilon_decay: 0.95
+  sbx_eta: 20
+  sbx_prob: 0.9
+  pm_eta: 20
+  de_F: 0.5
+  de_CR: 0.9

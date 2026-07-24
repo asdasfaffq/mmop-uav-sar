@@ -1,0 +1,19 @@
+# Core scientific stack (Phases 0-9)
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+scikit-learn>=1.3
+pyyaml>=6.0
+pymoo>=0.6.1          # reference MOEA operators / indicators (HV, IGD)
+networkx>=3.0         # graph routing for UAV application
+
+# Real-world OSM application (Phase 10+). Heavier geo stack -- install when
+# reaching Phase 10. Pinned loosely; geopandas pulls shapely/pyproj/fiona.
+osmnx>=1.9            # OpenStreetMap graph download/build
+shapely>=2.0
+geopandas>=0.14
+contextily>=1.5       # real OSM basemap tiles for photorealistic application figures
+
+# Testing
+pytest>=7.0

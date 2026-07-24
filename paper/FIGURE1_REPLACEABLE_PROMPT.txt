@@ -1,0 +1,72 @@
+============================================================
+ FIGURE 1 (EARS-MMOEA framework) — 直接可粘贴的 AI 提示词
+============================================================
+用法: 整段复制下面 [PROMPT] 里的英文，贴进 GPT-4o 画图 / DALL·E 3 /
+      Midjourney / Nano-Banana 等。建议横版 16:9。
+提示: 现代模型能渲染短英文标签；若公式或密集文字渲染出错，改用最底部
+      "NO-TEXT 版"，文字自己用 PPT/PS 叠（更稳）。
+
+============================================================
+[PROMPT]  —— 复制这一整段
+============================================================
+A clean, publication-quality scientific FRAMEWORK DIAGRAM (architecture flowchart,
+infographic style, NOT a photo), flat vector look, white background, soft academic
+palette (slate blue, warm orange, teal, green, light grey), thin clean connector
+arrows, rounded rectangle boxes, subtle drop shadows, generous whitespace, crisp
+legible sans-serif labels, horizontal left-to-right reading order, 16:9.
+
+LAYOUT, left to right:
+
+1) INPUT (far left): a small stylized top-down city map of light-grey streets with a
+faint blue river and scattered tiny demand dots, inside a light-blue rounded box
+labeled "Real OSM city". An arrow points right.
+
+2) ENGINE (center, large): a big rounded container with a blue border, titled at the
+top "EARS-MMOEA engine (one generation)". Inside it, SEVEN small rounded module
+tiles connected by arrows in a loop, with a dashed curved arrow on top labeled "next
+generation" returning to the first tile. The seven tiles, labeled:
+   - "M3 Adaptive niching"
+   - "M4 Within-/cross-mode mating"
+   - "M2 Three archives"
+   - "M5 Constraint-aware sort"
+   - "M7 Environmental selection"
+One tile in the lower center is the CORE, HIGHLIGHTED with a glowing warm-orange
+frame and halo, labeled "M1 Hybrid dual-space key" and below it the formula
+"D = E (1 + beta * S)". A short bold orange arrow runs from this M1 tile up into the
+"M7 Environmental selection" tile, labeled "ranks the splitting front (within-front
+tie-break, after the sort)".
+
+3) OUTPUT (right): a yellow rounded box labeled "Multiple Pareto-equivalent layout
+families", emitting several distinct clusters of small star markers.
+
+4) VALIDATION (far right): two small teal badges stacked vertically:
+   - "MMF + CEC MMO benchmark: rank-1"
+   - "Five real OSM cities: rank-1"
+
+Keep all text short and perfectly spelled. No paragraphs, no extra words, no
+watermark. Minimalist, balanced, premium scientific poster aesthetic. 16:9.
+============================================================
+
+------------------------------------------------------------
+NO-TEXT 版 (若上面文字渲染乱码，用这个，然后自己叠字)
+------------------------------------------------------------
+Same clean flat-vector scientific framework diagram and layout as above (input city
+box on the left, a large rounded engine container in the center holding seven small
+rounded module tiles in a loop with one central tile highlighted by a glowing
+warm-orange frame and an orange arrow into the selection tile, a yellow output box
+on the right emitting clusters of star markers, and two small teal validation badges
+on the far right), but render it COMPLETELY WITHOUT ANY TEXT: no words, no letters,
+no numbers, no equations, leave the label areas as clean blank rounded shapes.
+Soft academic palette, whitespace, drop shadows, 16:9.
+
+叠字清单 (按位置):
+  左框: Real OSM city
+  引擎标题: EARS-MMOEA engine (one generation)
+  七模块: M1 Hybrid dual-space key  D(i)=E(i)(1+βS(i))  [高亮];  M2 Three archives;
+          M3 Adaptive niching;  M4 Within-/cross-mode mating;  M5 Constraint-aware
+          sort;  M6 Operator portfolio (bandit);  M7 Environmental selection
+  橙箭头: ranks the splitting front (within-front tie-break)
+  反馈箭头: next generation
+  右框: Multiple Pareto-equivalent layout families
+  两 badge: MMF + CEC MMO benchmark: rank-1  /  Five real OSM cities: rank-1
+============================================================

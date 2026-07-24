@@ -1,0 +1,28 @@
+\begin{table}[t]
+\centering\small
+\caption{High-dimensional study on ScalableMMF2 (two equivalent global Pareto sets at every dimension, analytic reference): mean IGDX (decision-space, primary) and IGD (convergence) over $30$ runs versus decision dimension $d$, frozen protocol, best per column in bold. At low $d$ CPDEA's density specialization gives the best IGDX (the main-benchmark tie); but EARS degrades the most gracefully and is best on \emph{both} IGDX and IGD at $d\!\ge\!50$, the margin widening with $d$. This is the within-front placement made visible: convergence, carried by the dominance rank and kept out of the high-$d$-degrading diversity signal, is protected exactly where distance-based estimates lose contrast, whereas methods that fold diversity into fitness (CPDEA, MMEA-WI) see convergence collapse ($\mathrm{IGD}\!>\!2$ at $d{=}100$). Absolute IGDX still grows with $d$ for all methods (none fully recovers both sets at $d{=}100$), an honest scope boundary.}
+\label{tab:highdim}
+\begin{tabular}{lrrrrr}
+\toprule
+algorithm & $d{=}5$ & $d{=}10$ & $d{=}30$ & $d{=}50$ & $d{=}100$ \\
+\midrule
+\multicolumn{6}{l}{\emph{IGDX (decision-space, lower better)}}\\
+EARS-MMOEA & 0.1448 & 0.2282 & 0.5739 & \textbf{0.6943} & \textbf{0.8872} \\
+DN-NSGA-II & 0.1754 & 0.2635 & \textbf{0.5002} & 0.8356 & 1.6114 \\
+CPDEA & \textbf{0.0501} & \textbf{0.1529} & 0.6320 & 1.0074 & 1.5588 \\
+Omni-opt & 0.1731 & 0.2520 & 0.5196 & 0.8510 & 1.6310 \\
+HREA & 0.1455 & 0.2396 & 0.5813 & 0.9686 & 1.7859 \\
+MMEA-WI & 0.1834 & 0.2704 & 0.5677 & 0.9273 & 1.7822 \\
+MO\_Ring\_PSO\_SCD & 0.3314 & 0.5659 & 1.2979 & 1.3165 & 1.5150 \\
+\midrule
+\multicolumn{6}{l}{\emph{IGD (convergence, lower better)}}\\
+EARS-MMOEA & \textbf{0.0039} & \textbf{0.0071} & 0.2742 & \textbf{0.3950} & \textbf{0.6501} \\
+DN-NSGA-II & 0.0159 & 0.0706 & \textbf{0.1795} & 0.4552 & 2.2156 \\
+Omni-opt & 0.0120 & 0.0703 & 0.1930 & 0.4715 & 2.2549 \\
+CPDEA & 0.0067 & 0.0194 & 0.2605 & 0.7825 & 2.4360 \\
+MO\_Ring\_PSO\_SCD & 0.1523 & 0.3475 & 0.8418 & 0.8712 & 1.2957 \\
+MMEA-WI & 0.0209 & 0.0667 & 0.2625 & 0.6087 & 2.7452 \\
+HREA & 0.0121 & 0.0426 & 0.2819 & 0.6244 & 2.8047 \\
+\bottomrule
+\end{tabular}
+\end{table}

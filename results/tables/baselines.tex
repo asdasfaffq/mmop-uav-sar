@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\caption{Selected baselines: 3 SOTA + 3 popular classic MMOP methods.}
+\label{tab:baselines}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+method & type & mechanism & venue \\
+\midrule
+MO\_Ring\_PSO\_SCD & classic & PSO + ring topology + special crowding distance & IEEE TEVC 2018 \\
+DN\_NSGAII & classic & decision-space niching NSGA-II & IEEE CEC 2016 \\
+OmniOptimizer & classic & epsilon-dominance + decision\&objective crowding & EJOR 2008 \\
+CPDEA & sota & convergence-penalized density (decision-space) + DE & IEEE TEVC 2020 \\
+MMEA\_WI & sota & weighted indicator (decision-space diversity in indicator) & IEEE TEVC 2021 \\
+HREA & sota & hierarchy ranking (global + within-peak local Pareto fronts) & IEEE TEVC 2023 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

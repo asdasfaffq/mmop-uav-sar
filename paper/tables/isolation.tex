@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering\small
+\caption{Placement isolation on MMF1--8 ($30$ runs): the \emph{same} pure decision-space sparsity signal $S$ placed \emph{within the splitting front} (ours) versus \emph{in the dominance sort}, with everything else (signal, operators, niching, budget) held fixed. Top: the full framework; bottom: a minimal skeleton with the auxiliary modules (archives, cross-mode mating, operator portfolio) removed. Placing $S$ in the sort lets a decision-diverse but unconverged solution cross front boundaries, degrading \emph{both} convergence and coverage by a wide margin in both settings, so the effect is placement, not the auxiliary modules. W/T/L is the within-front variant against the in-sort variant (per-problem paired Wilcoxon, $\alpha{=}0.05$). The no-$S$ row is the reference. A convergence-penalised density key behaves differently and is discussed in the text.}
+\label{tab:isolation}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llrrl}
+\toprule
+setting & placement of $S$ & IGD & IGDX & W/T/L (vs in-sort) \\
+\midrule
+full framework & \textbf{within-front (ours)} & 0.0029 & 0.0377 & IGD 7/1/0, IGDX 8/0/0 \\
+ & in the dominance sort & 0.0314 & 0.1067 &  \\
+ & no $S$ (reference) & 0.0028 & 0.0417 &  \\
+\midrule
+minimal skeleton & \textbf{within-front (ours)} & 0.0028 & 0.0491 & IGD 7/1/0, IGDX 8/0/0 \\
+ & in the dominance sort & 0.0311 & 0.1225 &  \\
+ & no $S$ (reference) & 0.0028 & 0.0618 &  \\
+\bottomrule
+\end{tabular}}
+\end{table}
