@@ -90,7 +90,7 @@ placing $S$ in the sort degrades \emph{both} convergence (IGD $0.003\!\to\!0.031
 wins $7/1/0$) and coverage (IGDX $0.038\!\to\!0.107$, $8/0/0$), because it scatters the
 population into unconverged decision-diverse regions and loses the Pareto sets themselves.
 Confined to the front, the same $S$ improves coverage over no-$S$ at negligible
-convergence cost. To test whether the in-sort point was simply weakly tuned, we sweep the in-sort
+convergence cost. To rule out a weakly tuned in-sort baseline, we sweep the in-sort
 weight $\lambda$ of the fused key ($\mathrm{score}={-}\mathrm{conv}+\lambda S$) over
 $\{0.05,0.1,0.25,0.5,1\}$ and trace the resulting IGD--IGDX curve (Figure~\ref{fig:insort}):
 increasing $\lambda$ moves the in-sort point but never reaches the within-front point, which lies
@@ -246,8 +246,8 @@ IGDX here, confirming both its competence and the regime split.
 The placement makes a falsifiable high-dimensional prediction: because convergence rides the
 dominance rank and not the diversity signal, it should be the most robust to dimension as the
 distance-based diversity estimate loses contrast. We test this.
-The MMF suite is two-dimensional in decision space, so it cannot probe whether the $k$NN
-sparsity estimate and the silhouette $k$-means niching degrade as the decision dimension grows
+The MMF suite is two-dimensional in decision space, so it cannot probe degradation of the $k$NN
+sparsity estimate and the silhouette $k$-means niching as the decision dimension grows
 (a known concern for distance-based methods). We therefore build a scalable problem,
 \emph{ScalableMMF2}, that embeds the two equivalent Pareto sets of MMF2 in $d$ dimensions by
 appending $d{-}2$ spherical distance variables that vanish on the Pareto set; the number of
@@ -262,7 +262,7 @@ absolute IGDX grows with $d$ for every method (none fully recovers both sets at 
 diversity machinery does lose resolution in high dimensions. The mechanism is measurable: the
 coefficient of variation of the $k$NN distances in a uniform population falls from $0.20$ at
 $d{=}5$ to $0.03$ at $d{=}100$, so the sparsity signal $S$ (a normalised $k$NN distance) loses
-contrast as $d$ grows, which is why every method's coverage degrades. \textbf{(ii) The placement helps
+contrast as $d$ grows, and every method's coverage therefore degrades. \textbf{(ii) The placement helps
 exactly here:} at low $d$ the density-specialist CPDEA has the best IGDX ($0.05$/$0.15$ at
 $d{=}5$/$10$, the main-benchmark tie), but EARS degrades the most gracefully and is best on
 \emph{both} IGDX and IGD at $d{\ge}50$, the margin widening with $d$ ($d{=}100$: IGDX $0.89$ vs
@@ -329,10 +329,10 @@ problems; and that no component's removal beats the full method on the metrics t
   \label{fig:ablation}
 \end{figure}
 
-\paragraph{Forward construction: where the benchmark gain is built} The subtractive ablation
-above answers ``what does removing a module cost''; to answer the complementary
-``where does the gain come from'' (and to address the concern that performance is an artefact of
-stacking seven modules) we also run a \emph{constructive} ladder
+\paragraph{Forward construction: source of the benchmark gain} The subtractive ablation
+above reports the cost of removing each module. As a complementary source-of-gain analysis,
+and to address the concern that performance is an artefact of stacking seven modules, we also run
+a \emph{constructive} ladder
 (Table~\ref{tab:forward_ablation}): starting from an NSGA-II-like base, each rung adds exactly one
 capability. The picture is clear. Decision-space quality is built by three components:
 the equivalence key ($+E$: IGDX $0.269\!\to\!0.060$), the within-front sparsity term
@@ -362,7 +362,7 @@ problems. $\beta$ is thus genuinely sensitive, and we report this; the choice is
 one-factor-at-a-time sweep on the same subset (Figure~\ref{fig:param}), with a full-budget
 validation-only re-check for the niching frequency. The frozen set is used unchanged for all of the benchmark,
 ablation, and case-study experiments; the configuration is released. Table~\ref{tab:hyper} lists
-every hyperparameter with its value, role, and how it was set (swept grid or standard default).
+every hyperparameter with its value, role, and setting rule (swept grid or standard default).
 
 \input{tables/hyperparameters}
 

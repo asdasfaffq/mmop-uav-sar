@@ -27,12 +27,11 @@ MMEA-WI~\parencite{li2021mmeawi} folds decision diversity into a weighted indica
 decision-space coverage necessarily spends some convergence. Classic niching methods
 (MO\_Ring\_PSO\_SCD~\parencite{yue2018moring}, DN-NSGA-II~\parencite{liang2016dnnsga2},
 Omni-optimizer~\parencite{deb2008omni}) sit at different points of the same curve. The open
-question is therefore not how to weight the two objectives better, but whether decision-space
-diversity can be added at only a \emph{small, bounded} convergence cost instead of the full
-trade-off these methods pay.
+gap is therefore a selection mechanism that adds decision-space diversity at only a
+\emph{small, bounded} convergence cost instead of the full trade-off these methods pay.
 
-\paragraph{Our key insight: \emph{where} the diversity term enters the pipeline} We answer
-this question by moving the decision-space signal to a later point in selection. A generational
+\paragraph{Our key insight: placement of the diversity term in the pipeline} We address
+this gap by moving the decision-space signal to a later point in selection. A generational
 MMOEA first sorts solutions by dominance and then chooses among the members of the splitting
 front. Prior state-of-the-art methods let decision-space diversity influence the first step, either through
 convergence-penalised density or through a weighted indicator. EARS-MMOEA
