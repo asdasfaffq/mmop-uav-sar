@@ -104,9 +104,15 @@ for a in ["A8_BackboneOnly","A3_noEquivFitness","A7_noPortfolio","A9_noSparsityB
     print(f"  IGDX: A0={igdx0:.4f}  {a}={iv:.4f}  -> variant worse by {100*(iv-igdx0)/igdx0:.0f}%")
 
 print(); print("="*70); print("PLACEMENT (5 cities)"); print("="*70)
-CITIES = [("Macau","placement"),("Guangzhou","placement_guangzhou"),
-          ("Shenzhen","placement_shenzhen"),("SanFrancisco","placement_sanfrancisco"),
-          ("HongKong","placement_hongkong")]
+# The paper's PRIMARY case-study evaluation uses the INDEPENDENT high-budget reference
+# (results/reference/), so the audit must score the same experiments the paper reports.
+# Set REF_SUFFIX = "" to audit the self-inclusive-reference numbers instead; the paper
+# quotes both, and the rankings are identical under either.
+REF_SUFFIX = "_indref"
+CITIES = [("Macau","placement"+REF_SUFFIX),("Guangzhou","placement_guangzhou"+REF_SUFFIX),
+          ("Shenzhen","placement_shenzhen"+REF_SUFFIX),
+          ("SanFrancisco","placement_sanfrancisco"+REF_SUFFIX),
+          ("HongKong","placement_hongkong"+REF_SUFFIX)]
 # Core suite MUST match plotting/make_multicity_table.py: n_modes is excluded because
 # the search and that metric share a silhouette-k-means geometry. Keeping n_modes here
 # silently disagreed with the paper table (audit said core 2.06/2.93, table 1.94/3.21).
