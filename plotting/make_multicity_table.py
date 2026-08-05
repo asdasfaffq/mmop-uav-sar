@@ -9,13 +9,20 @@ ROOT = Path(__file__).resolve().parent.parent
 CORE = ["HV", "IGD_ref", "IGDX_ref"]   # n_modes excluded: search and metric share a
                                         # silhouette-k-means geometry (alignment risk), so the
                                         # core suite uses only reference-based indicators
-CITIES = [("Macau", "placement"), ("Guangzhou", "placement_guangzhou"),
-          ("Shenzhen", "placement_shenzhen"),
-          ("San Francisco", "placement_sanfrancisco"),
-          ("Hong Kong", "placement_hongkong")]
-ALGOS = ["EARS_MMOEA", "CPDEA", "DN_NSGAII", "MMEA_WI", "MO_Ring_PSO_SCD", "OmniOptimizer", "HREA"]
+# Primary evaluation uses the INDEPENDENT high-budget reference (Appendix): the scored
+# algorithms did not contribute to the yardstick. Set REF_SUFFIX="" to reproduce the
+# self-inclusive-reference numbers, which give the same rankings.
+REF_SUFFIX = "_indref"
+CITIES = [("Macau", "placement" + REF_SUFFIX),
+          ("Guangzhou", "placement_guangzhou" + REF_SUFFIX),
+          ("Shenzhen", "placement_shenzhen" + REF_SUFFIX),
+          ("San Francisco", "placement_sanfrancisco" + REF_SUFFIX),
+          ("Hong Kong", "placement_hongkong" + REF_SUFFIX)]
+ALGOS = ["EARS_MMOEA", "CPDEA", "DN_NSGAII", "MMEA_WI", "MO_Ring_PSO_SCD", "OmniOptimizer",
+         "HREA", "NSGAII"]
 DISP = {"EARS_MMOEA": "EARS", "CPDEA": "CPDEA", "DN_NSGAII": "DN-NSGA-II",
-        "MMEA_WI": "MMEA-WI", "MO_Ring_PSO_SCD": r"MO\_Ring", "OmniOptimizer": "Omni", "HREA": "HREA"}
+        "MMEA_WI": "MMEA-WI", "MO_Ring_PSO_SCD": r"MO\_Ring", "OmniOptimizer": "Omni", "HREA": "HREA",
+        "NSGAII": "NSGA-II$^{c}$"}
 
 
 def ranks(exp):
@@ -27,17 +34,46 @@ def ranks(exp):
     return full, core
 
 
-L = [r"\begin{table}[t]", r"\centering\small",
-     (r"\caption{Generalization across five real OSM cities (7 algorithms incl.\ HREA): "
-      r"full-suite average rank (7 metrics) per algorithm under the identical frozen protocol "
-      r"(30 runs). The bottom \textbf{Average} row is the mean rank over all five cities. "
-      r"EARS-MMOEA is rank-1 on the five-city average on both suites (full $2.71$, core "
-      r"$1.94$; next HREA $3.37$/$3.21$) and rank-1 \emph{individually} on the full suite of "
-      r"all five cities; on the core suite it is rank-1 on three (Macau, Guangzhou, "
-      r"San~Francisco) and second to Omni-optimizer on two (Shenzhen, Hong~Kong), which we "
-      r"report. The \emph{core suite is the three reference-based indicators} (HV, IGD, IGDX); "
-      r"$\#$modes is excluded because the search and that metric share a silhouette-$k$-means "
-      r"geometry. The last column is EARS's per-city core-suite average rank.}"),
+# --- derive the caption's factual claims from the data, never hardcode them -----
+_per_city = {}
+for _name, _exp in CITIES:
+    _f, _c = ranks(_exp)
+    _per_city[_name] = (_f, _c)
+_avg_full = {a: sum(_per_city[n][0][a] for n, _ in CITIES) / len(CITIES) for a in ALGOS}
+_avg_core = {a: sum(_per_city[n][1][a] for n, _ in CITIES) / len(CITIES) for a in ALGOS}
+_ord_f = sorted(_avg_full, key=_avg_full.get); _ord_c = sorted(_avg_core, key=_avg_core.get)
+_full_wins = [n for n, _ in CITIES if min(_per_city[n][0], key=_per_city[n][0].get) == "EARS_MMOEA"]
+_core_wins = [n for n, _ in CITIES if min(_per_city[n][1], key=_per_city[n][1].get) == "EARS_MMOEA"]
+_full_lost = [(n, min(_per_city[n][0], key=_per_city[n][0].get)) for n, _ in CITIES
+              if n not in _full_wins]
+_core_lost = [(n, min(_per_city[n][1], key=_per_city[n][1].get)) for n, _ in CITIES
+              if n not in _core_wins]
+def _lst(items):
+    d = {"San Francisco": "San~Francisco", "Hong Kong": "Hong~Kong"}
+    return ", ".join(d.get(x, x) for x in items)
+def _lost(items):
+    d = {"San Francisco": "San~Francisco", "Hong Kong": "Hong~Kong"}
+    return ", ".join(f"{d.get(n, n)} to {DISP[a].replace('$^{c}$','')}" for n, a in items)
+
+_cap = (
+    r"\caption{Generalization across five real OSM cities under the identical frozen protocol "
+    r"(30 runs): average rank per algorithm, full suite (7 metrics) and core suite. "
+    r"$^{c}$NSGA-II is a \emph{control} carrying no decision-space machinery, included so the "
+    r"ranking is not restricted to methods designed for this task. "
+    r"The bottom \textbf{Average} row is the mean over the five cities. "
+    f"EARS-MMOEA is rank-1 on the five-city average on both suites (full ${_avg_full['EARS_MMOEA']:.2f}$, "
+    f"core ${_avg_core['EARS_MMOEA']:.2f}$; next {DISP[_ord_f[1]].replace('$^{{c}}$','')} "
+    f"${_avg_full[_ord_f[1]]:.2f}$ and {DISP[_ord_c[1]].replace('$^{{c}}$','')} ${_avg_core[_ord_c[1]]:.2f}$). "
+    f"Per city it is rank-1 on the full suite in {len(_full_wins)} of five ({_lst(_full_wins)})"
+    + (f", losing {_lost(_full_lost)}" if _full_lost else "")
+    + f", and on the core suite in {len(_core_wins)} of five ({_lst(_core_wins)})"
+    + (f", losing {_lost(_core_lost)}" if _core_lost else "")
+    + r". These per-city losses are reported rather than aggregated away. "
+    r"The \emph{core suite is the three reference-based indicators} (HV, IGD, IGDX); "
+    r"$\#$modes is excluded because the search and that metric share a silhouette-$k$-means "
+    r"geometry. The last column is EARS's per-city core-suite average rank.}")
+
+L = [r"\begin{table}[t]", r"\centering\small", _cap,
      r"\label{tab:placement_multicity}",
      r"\resizebox{\linewidth}{!}{%",
      r"\begin{tabular}{l" + "c" * len(ALGOS) + "c}", r"\toprule",
@@ -75,9 +111,10 @@ L.append(r"\textbf{Average (5 cities)} & " + " & ".join(scells)
          + r" & \textbf{" + f"{cavg_ears:.2f}" + r"} \\")
 
 L += [r"\bottomrule", r"\end{tabular}}",
-      (r"\par\smallskip\footnotesize $^\dagger$Core-suite second to Omni-optimizer "
-       r"(Shenzhen $2.06$ vs $2.17$; Hong~Kong $2.22$ vs $2.56$), but rank-1 on the full suite. "
-       r"On the five-city average EARS is rank-1 on both the core and the full suites."),
+      (r"\par\smallskip\footnotesize $^\dagger$Core-suite rank-1 goes to another method in "
+       + f"{len(_core_lost)} " + ("city" if len(_core_lost) == 1 else "cities") + ": "
+       + _lost(_core_lost)
+       + r". On the five-city average EARS is rank-1 on both the core and the full suites."),
       r"\end{table}"]
 
 out = ROOT / "results/tables/placement_multicity.tex"

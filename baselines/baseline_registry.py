@@ -33,6 +33,10 @@ BASELINE_INFO: dict[str, dict[str, str]] = {
         type="classic", mechanism="decision-space niching NSGA-II",
         venue="IEEE CEC 2016", code="PlatEMO (DNNSGAII)",
         module="baselines.dn_nsga2"),
+    "NSGAII": dict(
+        type="control", mechanism="objective-space crowding only (no decision-space machinery)",
+        venue="IEEE TEVC 2002", code="canonical",
+        module="baselines.nsga2"),
     "OmniOptimizer": dict(
         type="classic", mechanism="epsilon-dominance + decision&objective crowding",
         venue="EJOR 2008", code="PlatEMO (OmniOptimizer)",
@@ -52,9 +56,14 @@ BASELINE_INFO: dict[str, dict[str, str]] = {
         module="baselines.hrea"),
 }
 
-BASELINES: tuple[str, ...] = tuple(BASELINE_INFO.keys())
+# The 6 comparison baselines are frozen (Phase 1) and must stay 6: 3 SOTA + 3 classic.
+# NSGA-II is a *control*, not a comparison baseline -- it carries no decision-space
+# machinery and exists to test whether the multimodal apparatus is needed at all. It is
+# therefore excluded from BASELINES and kept in CONTROLS.
+CONTROLS: tuple[str, ...] = ("NSGAII",)
+BASELINES: tuple[str, ...] = tuple(k for k in BASELINE_INFO if k not in CONTROLS)
 OURS = "EARS_MMOEA"
-ALL_ALGORITHMS: tuple[str, ...] = (OURS,) + BASELINES
+ALL_ALGORITHMS: tuple[str, ...] = (OURS,) + BASELINES + CONTROLS
 
 # Registry of constructors filled by register() decorators in each module.
 _REGISTRY: dict[str, Callable[..., Algorithm]] = {}

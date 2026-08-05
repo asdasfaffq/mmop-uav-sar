@@ -4,4 +4,5 @@
 2,HREA,0,3,0
 3,MMEA_WI,1,2,0
 4,MO_Ring_PSO_SCD,3,0,0
-5,OmniOptimizer,0,3,0
+5,NSGAII,0,3,0
+6,OmniOptimizer,0,3,0

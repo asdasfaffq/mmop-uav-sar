@@ -20,6 +20,7 @@ from algorithms.base import Algorithm, Result
 from algorithms.equivalence_fitness import (constrained_dominates,
                                             fast_nondominated_sort,
                                             special_crowding_distance)
+from baselines import _common as C
 from baselines.baseline_registry import register
 
 
@@ -33,6 +34,10 @@ class MORingPSOSCD(Algorithm):
         d = prob.n_var
         xl, xu = prob.xl, prob.xu
         vmax = 0.5 * (xu - xl)
+
+        # SCD, optionally wrapped with the within-front sparsity term for the
+        # transferability probe (off by default -> identical to the reported runs).
+        div = C.resolve_div_fn(special_crowding_distance, self.params)
 
         X = rng.uniform(xl, xu, size=(N, d))
         V = np.zeros((N, d))
@@ -48,7 +53,7 @@ class MORingPSOSCD(Algorithm):
 
         while self.budget_left >= N:
             # neighbourhood (ring) best per particle from neighbours' pbests
-            nbest = self._ring_nbest(pbestX, pbestF, rng)
+            nbest = self._ring_nbest(pbestX, pbestF, rng, div)
             r1 = rng.random((N, d)); r2 = rng.random((N, d))
             V = chi * (V + c1 * r1 * (pbestX - X) + c2 * r2 * (nbest - X))
             V = np.clip(V, -vmax, vmax)
@@ -67,7 +72,8 @@ class MORingPSOSCD(Algorithm):
                     if rng.random() < 0.5:
                         pbestX[i], pbestF[i] = X[i], F[i]
             # archive update with SCD pruning
-            archX, archF = self._update_archive(archX, archF, X, F, cap, CV=CV)
+            archX, archF = self._update_archive(archX, archF, X, F, cap, CV=CV,
+                                                div=div)
 
         # final output: external archive (feasible non-dominated, SCD-spread).
         # fallback to the least-violating particles if no feasible ever found.
@@ -83,7 +89,7 @@ class MORingPSOSCD(Algorithm):
         nd = fast_nondominated_sort(F)[0]
         return X[nd].copy(), F[nd].copy()
 
-    def _ring_nbest(self, pbestX, pbestF, rng):
+    def _ring_nbest(self, pbestX, pbestF, rng, div=special_crowding_distance):
         N = len(pbestX)
         nbest = np.empty_like(pbestX)
         for i in range(N):
@@ -95,12 +101,13 @@ class MORingPSOSCD(Algorithm):
                 nbest[i] = pbestX[cand[0]]
             else:
                 # pick the most diverse by SCD among the non-dominated neighbours
-                scd = special_crowding_distance(pbestF[cand], pbestX[cand])
+                scd = div(pbestF[cand], pbestX[cand])
                 best = np.argwhere(scd == scd.max()).ravel()
                 nbest[i] = pbestX[cand[int(rng.choice(best))]]
         return nbest
 
-    def _update_archive(self, archX, archF, X, F, cap, CV=None):
+    def _update_archive(self, archX, archF, X, F, cap, CV=None,
+                        div=special_crowding_distance):
         # fair constraint handling: only feasible solutions enter the archive
         if CV is not None:
             feas = np.asarray(CV) <= 0
@@ -115,7 +122,7 @@ class MORingPSOSCD(Algorithm):
         _, uidx = np.unique(np.round(allX, 9), axis=0, return_index=True)
         allX, allF = allX[np.sort(uidx)], allF[np.sort(uidx)]
         if len(allX) > cap:
-            scd = special_crowding_distance(allF, allX)
+            scd = div(allF, allX)
             keep = np.argsort(-scd)[:cap]
             allX, allF = allX[keep], allF[keep]
         return allX, allF

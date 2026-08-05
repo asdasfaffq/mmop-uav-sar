@@ -40,6 +40,15 @@ VARIANTS = {
     "InSort_lam0.25": {"selection_mode": "in_sort_pure_s", "hybrid_beta": 0.25},
     "InSort_lam0.50": {"selection_mode": "in_sort_pure_s", "hybrid_beta": 0.50},
     "InSort_lam1.00": {"selection_mode": "in_sort_pure_s", "hybrid_beta": 1.00},
+    # The curve is still improving monotonically on BOTH axes at lam=1, so a grid
+    # stopping there cannot support "the within-front point dominates the entire
+    # in-sort curve" -- a reviewer would rightly ask what happens further out.
+    # Extended until the in-sort curve turns.
+    "InSort_lam2.00":  {"selection_mode": "in_sort_pure_s", "hybrid_beta": 2.00},
+    "InSort_lam4.00":  {"selection_mode": "in_sort_pure_s", "hybrid_beta": 4.00},
+    "InSort_lam8.00":  {"selection_mode": "in_sort_pure_s", "hybrid_beta": 8.00},
+    "InSort_lam16.00": {"selection_mode": "in_sort_pure_s", "hybrid_beta": 16.00},
+    "InSort_lam32.00": {"selection_mode": "in_sort_pure_s", "hybrid_beta": 32.00},
 }
 
 

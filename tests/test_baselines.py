@@ -44,5 +44,6 @@ def test_seed_protocol_is_algorithm_independent():
 
 
 def test_all_six_baselines_plus_ours_present():
-    assert len(ALL_ALGORITHMS) == 7
+    # ours + 6 frozen comparison baselines + the NSGA-II control
+    assert len(ALL_ALGORITHMS) == 8
     assert ALL_ALGORITHMS[0] == "EARS_MMOEA"

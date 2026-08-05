@@ -64,6 +64,14 @@ class EARSMMOEA(Algorithm):
                                              self.selection_mode)
         self.penalty_lambda = p.get("penalty_lambda", 2.0)
         self.hybrid_beta = p.get("hybrid_beta", 1.0)
+        # Diagnostic switch (off by default; every reported result uses the default).
+        # When on, the final report is the POPULATION only -- the Pareto and
+        # decision-mode archives are excluded from the reported set. Because the
+        # archives retain converged solutions, they mask convergence damage that the
+        # selection layer inflicts on the population; excluding them tests whether a
+        # selection-layer conclusion drawn inside this framework survives without that
+        # masking. See docs/PLACEMENT_CLAIM_REFUTATION.md.
+        self.report_population_only = bool(p.get("report_population_only", False))
         # Phase-8 redesign: convergence-gated epsilon-band diversity archive (the new
         # MMOP core). When on, the final reported set is this archive (converged AND
         # decision-diverse), and a fraction of matings draw a diverse converged mate
@@ -253,10 +261,11 @@ class EARSMMOEA(Algorithm):
                                  "pareto_archive_size": len(pareto_arc)})
         parts_X = [X]
         parts_F = [F]
-        if len(pareto_arc):
-            parts_X.append(pareto_arc.X); parts_F.append(pareto_arc.F)
-        if self.use_dm_archive and len(dm_arc):
-            parts_X.append(dm_arc.X); parts_F.append(dm_arc.F)
+        if not self.report_population_only:
+            if len(pareto_arc):
+                parts_X.append(pareto_arc.X); parts_F.append(pareto_arc.F)
+            if self.use_dm_archive and len(dm_arc):
+                parts_X.append(dm_arc.X); parts_F.append(dm_arc.F)
         uX = np.vstack(parts_X); uF = np.vstack(parts_F)
         # feasible non-dominated
         uCV = np.zeros(len(uX))

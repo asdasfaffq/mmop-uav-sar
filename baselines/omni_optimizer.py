@@ -29,7 +29,7 @@ class OmniOptimizer(Algorithm):
 
         X = rng.uniform(prob.xl, prob.xu, size=(N, prob.n_var))
         out = self._evaluate(X); F, CV = out["F"], out["CV"]
-        div_fn = C.div_omni
+        div_fn = C.resolve_div_fn(C.div_omni, self.params)
 
         while self.budget_left >= N:
             rank, div, _ = C.ranks_and_div(F, X, CV, div_fn)
@@ -39,7 +39,14 @@ class OmniOptimizer(Algorithm):
             qo = self._evaluate(Q)
             RX = np.vstack([X, Q]); RF = np.vstack([F, qo["F"]])
             RCV = np.concatenate([CV, qo["CV"]])
-            idx = C.nsga2_environmental(RX, RF, RCV, N, div_fn)
+            if self.params.get("insort_sparsity", False):
+                idx = C.insort_environmental(
+                    RX, RF, RCV, N,
+                    beta=float(self.params.get("insort_beta",
+                                               self.params.get("wf_beta", 0.5))),
+                    k=int(self.params.get("wf_k", 3)))
+            else:
+                idx = C.nsga2_environmental(RX, RF, RCV, N, div_fn)
             X, F, CV = RX[idx], RF[idx], RCV[idx]
 
         return Result(X=X, F=F, CV=CV, n_evaluations=self.evaluations_used)

@@ -13,7 +13,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def test_six_baselines_fixed():
+    # The comparison set stays frozen at 6; the NSGA-II control must not leak into it.
     assert len(reg.BASELINES) == 6
+    assert "NSGAII" not in reg.BASELINES and "NSGAII" in reg.CONTROLS
     types = sorted(reg.BASELINE_INFO[b]["type"] for b in reg.BASELINES)
     assert types.count("sota") == 3 and types.count("classic") == 3
 

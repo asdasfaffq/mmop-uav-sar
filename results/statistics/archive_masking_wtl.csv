@@ -1,0 +1,17 @@
+comparison,metric,win,tie,loss
+within-front vs in-sort  [archives reported],IGDX,2,5,1
+within-front vs in-sort  [archives reported],IGD,2,0,6
+within-front vs in-sort  [archives reported],PSP,2,5,1
+within-front vs in-sort  [archives reported],HV,3,0,5
+within-front vs in-sort  [population only],IGDX,8,0,0
+within-front vs in-sort  [population only],IGD,8,0,0
+within-front vs in-sort  [population only],PSP,8,0,0
+within-front vs in-sort  [population only],HV,8,0,0
+within-front: population-only vs archives,IGDX,3,3,2
+within-front: population-only vs archives,IGD,8,0,0
+within-front: population-only vs archives,PSP,3,3,2
+within-front: population-only vs archives,HV,5,3,0
+in-sort: population-only vs archives,IGDX,0,0,8
+in-sort: population-only vs archives,IGD,0,0,8
+in-sort: population-only vs archives,PSP,0,0,8
+in-sort: population-only vs archives,HV,0,0,8

@@ -107,7 +107,10 @@ print(); print("="*70); print("PLACEMENT (5 cities)"); print("="*70)
 CITIES = [("Macau","placement"),("Guangzhou","placement_guangzhou"),
           ("Shenzhen","placement_shenzhen"),("SanFrancisco","placement_sanfrancisco"),
           ("HongKong","placement_hongkong")]
-CORE4 = ["HV","IGD_ref","IGDX_ref","n_modes"]
+# Core suite MUST match plotting/make_multicity_table.py: n_modes is excluded because
+# the search and that metric share a silhouette-k-means geometry. Keeping n_modes here
+# silently disagreed with the paper table (audit said core 2.06/2.93, table 1.94/3.21).
+CORE4 = ["HV","IGD_ref","IGDX_ref"]
 FULL7 = ["HV","IGD_ref","IGDX_ref","n_modes","placement_diversity","mean_access","max_access"]
 fullacc, coreacc = defaultdict(list), defaultdict(list)
 for disp,exp in CITIES:
